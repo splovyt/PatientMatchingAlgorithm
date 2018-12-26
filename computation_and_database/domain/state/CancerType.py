@@ -1,0 +1,2 @@
+class CancerType:
+    pass

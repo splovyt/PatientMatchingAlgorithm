@@ -1,0 +1,80 @@
+<div>
+    <h2>Patients</h2>
+
+    <!--Nav buttons-->
+    <div>
+        <button ng-click="firstPage()">first page</button>
+        <button ng-click="previousPage()">previous page</button>
+        <button ng-click="nextPage()">next page</button>
+    </div>
+
+    <!--Search-->
+    <form>
+        <label for="query">Search patients by alias:</label>
+        <input type="text" id="query" ng-model="query">
+        <input type="submit" value="Search" ng-click="search()">
+    </form>
+
+    <!--Adding patients-->
+    <button ng-show="!addingPatient" ng-click="addPatient()">add patient</button>
+    <form ng-show="addingPatient">
+        <h3>Add a patient</h3>
+        <label for="inputName">Alias:</label>
+        <input type="text" id="inputName" ng-model="inputPatient.name"><br/>
+        <label for="inputCancerType">Cancer type:</label>
+        <select id="inputCancerType" ng-model="inputPatient.cancer_subtype"
+        ng-options="cancerTypeName for (cancerTypeName, cancerTypeUrl) in cancerSubtypeUrls track by cancerTypeUrl">
+        </select><br/>
+        <button type="button" ng-click="finishAddingPatient()">Cancel</button>
+        <input type="submit" value="Send" ng-click="submitPatient()">
+    </form>
+
+    <!--Single patient view-->
+    <div ng-show="viewingPatient">
+        <h3>View for patient with id: {{ selectedPatient.id }}</h3>
+        <p><strong>Alias: </strong>{{ selectedPatient.name }}</p>
+        <p><strong>Cancer subtype: </strong>{{ selectedPatient.cancerSubtypeName }}</p>
+        <p><strong>Mutations (VAF values): </strong>
+            <button ng-show="!showMut" ng-click="showMut=true">Show</button>
+            <button ng-show="showMut" ng-click="showMut=false">Hide</button>
+            <ul ng-show="showMut">
+                <li ng-repeat="(geneName, vaf) in selectedPatient.mutationVafs">{{ geneName }}: {{ vaf }}</li>
+            </ul>
+        </p>
+        <p><strong>Expressions: </strong>
+            <button ng-show="!showExp" ng-click="showExp=true">Show</button>
+            <button ng-show="showExp" ng-click="showExp=false">Hide</button>
+            <ul ng-show="showExp">
+                <li ng-repeat="(geneName, exp) in selectedPatient.expressions">{{ geneName }}: {{ exp }}</li>
+            </ul>
+        </p>
+        <p><strong>Methylations: </strong>
+            <button ng-show="!showMet" ng-click="showMet=true">Show</button>
+            <button ng-show="showMet" ng-click="showMet=false">Hide</button>
+            <ul ng-show="showMet">
+                <li ng-repeat="(geneName, meth) in selectedPatient.methylations">{{ geneName }}: {{ meth }}</li>
+            </ul>
+        </p>
+        <p><strong>Cnvs: </strong>
+            <button ng-show="!showCnv" ng-click="showCnv=true">Show</button>
+            <button ng-show="showCnv" ng-click="showCnv=false">Hide</button>
+            <ul ng-show="showCnv">
+                <li ng-repeat="(geneName, cnv) in selectedPatient.cnvs">{{ geneName }}: {{ cnv }}</li>
+            </ul>
+        </p>
+        <button ng-click="hideSelectedPatient()">Hide patient view</button>
+    </div>
+
+    <!--Table containing all patients-->
+    <table class="table-striped table table-bordered">
+        <tr><th>id</th><th>alias</th><th>cancer subtype</th></tr>
+        <tr ng-repeat = "patient in patients" ng-click="viewPatient(patient)">
+            <td>{{patient.id}}</td>
+            <td>{{patient.name}}</td>
+            <td>{{patient.cancerSubtypeName}}</td>
+        </tr>
+        <tr>
+            <td ng-show="patientsLoading" colspan="3">Loading the patients...</td>
+        </tr>
+    </table>
+</div>

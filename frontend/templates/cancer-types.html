@@ -1,0 +1,34 @@
+<div>
+    <h2>Cancer types</h2>
+    <table>
+        <tr><th>names per nomenclature</th></tr>
+        <tr ng-repeat = "cancerType in cancerTypes">
+            <td>{{cancerType.names_per_nomenclature}}</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <h2>New cancer type</h2>
+    <h3>Names per nomenclature</h3>
+    <p ng-repeat = "(nomenclatureName, name) in inputNamesPerNomenclature"> {{nomenclatureName}}: {{name}}</p>
+    <h3>New name</h3>
+    <form>
+        <label for="inputNomenclatureName">Nomenclature name:</label>
+        <input type="text" id="inputNomenclatureName" ng-model="inputNomenclatureName">
+        <label for="inputName">Name:</label>
+        <input type="text" id="inputName" ng-model="inputName">
+        <input type="submit" value="Add name" ng-click="addInputName()">
+    </form>
+    <button ng-click="createCancerType()">Create cancer type</button>
+</div>
+
+<div>
+    <h2>Cancer subtypes</h2>
+    <table>
+        <tr><th>names per nomenclature</th></tr>
+        <tr ng-repeat = "cancerSubtype in cancerSubtypes">
+            <td>{{cancerSubtype.names_per_nomenclature}}</td>
+        </tr>
+    </table>
+</div>
