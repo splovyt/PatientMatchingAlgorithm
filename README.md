@@ -1,5 +1,7 @@
 # NAOMI: a network-based web application for matching cancer patients by integrating multiple data types.
 
+Year: 2016
+
 Team members: M Misonne, M Bracke, M Deprez, S Plovyt, LPCV
 
 Documentation can be found in the Paper.pdf document.
